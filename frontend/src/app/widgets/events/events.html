@@ -1,0 +1,19 @@
+<section class="events" id="events">
+  <div class="container">
+    <header class="head">
+      <div>
+        <p class="eyebrow">Cycles Curatoriaux &amp; Salons</p>
+        <h2>OUR ART EVENTS &amp; SALONS</h2>
+      </div>
+      <p class="quote">
+        « L'art est l'effort suprême de l'homme pour immortaliser la fugitive clarté du divin. »
+      </p>
+    </header>
+
+    <div class="grid">
+      @for (e of exhibitions; track e.id) {
+        <app-exhibition-card [exhibition]="e" />
+      }
+    </div>
+  </div>
+</section>

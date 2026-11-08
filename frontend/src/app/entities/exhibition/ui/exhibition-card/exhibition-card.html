@@ -1,0 +1,15 @@
+<article class="card">
+  <div class="media">
+    <img [src]="exhibition().imageUrl" [alt]="exhibition().title" />
+    <span class="badge">{{ exhibition().badge }}</span>
+    <span class="place">{{ exhibition().location }}</span>
+  </div>
+  <div class="body">
+    <h3>{{ exhibition().title }}</h3>
+    <p>{{ exhibition().description }}</p>
+    <footer>
+      <span class="date">{{ exhibition().dateLabel }}</span>
+      <a href="#">{{ exhibition().ctaLabel }} →</a>
+    </footer>
+  </div>
+</article>

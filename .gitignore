@@ -1,0 +1,15 @@
+# Backend (Spring Boot / Maven)
+backend/target/
+*.log
+
+# Secrets: never in Git (JWT key, DB password, SMTP)
+.env
+*.env.local
+application-local.properties
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

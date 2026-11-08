@@ -1,0 +1,20 @@
+<header class="nav">
+  <div class="bar container">
+    <a class="brand" href="/">
+      <span class="mark">◆</span>
+      Art Collection <em>Manager</em>
+    </a>
+
+    <button class="burger" type="button" aria-label="Menu"
+            [attr.aria-expanded]="open()" (click)="toggle()">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="menu" [class.menu--open]="open()">
+      @for (l of links; track l.href) {
+        <a class="link" [href]="l.href" (click)="close()">{{ l.label }}</a>
+      }
+      <app-button variant="primary" href="/login">Connexion</app-button>
+    </nav>
+  </div>
+</header>

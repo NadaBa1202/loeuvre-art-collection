@@ -1,0 +1,35 @@
+<section class="about" id="about">
+  <div class="glow"></div>
+  <div class="inner container">
+    <div class="text">
+      <p class="eyebrow">Notre Vocation Institutionnelle</p>
+      <h2>WHO WE ARE</h2>
+      <h3>Masterpieces find their eternal home</h3>
+      <p class="lead">
+        Art Collection Manager est la plateforme souveraine dédiée aux institutions muséales,
+        conservateurs et sanctuaires d'art majeurs. Nous fédérons les chefs-d'œuvre historiques
+        et trésors patrimoniaux au sein d'une infrastructure conforme aux normes de récolement
+        et de numérisation scientifique.
+      </p>
+      <ul class="metrics">
+        @for (m of metrics; track m.label) {
+          <li class="metric">
+            <strong>{{ m.value }}</strong>
+            <span>{{ m.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="fan">
+      @for (img of fan; track img.src) {
+        <figure class="card card--{{ $index + 1 }}">
+          <img [src]="img.src" [alt]="img.alt" />
+          @if (img.caption) {
+            <figcaption>{{ img.caption }}</figcaption>
+          }
+        </figure>
+      }
+    </div>
+  </div>
+</section>

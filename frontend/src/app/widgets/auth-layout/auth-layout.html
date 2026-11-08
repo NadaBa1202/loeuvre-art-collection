@@ -1,0 +1,43 @@
+<main class="auth">
+  <aside class="showcase">
+    <img class="bg" src="images/chef-d-uvre-de-la-collection-nationale.png" alt="" />
+    <div class="shade"></div>
+
+    <div class="top">
+      <a class="logo" href="/">
+        <span class="logo-mark">ACM</span>
+        <span class="logo-text"><strong>Art Collection Manager</strong><small>Conservation • Archival</small></span>
+      </a>
+      
+    </div>
+
+    <div class="mid">
+      <span class="chip">Régie des Collections Nationales</span>
+      <h1>{{ heading() }}</h1>
+      <p class="lead">{{ lead() }}</p>
+
+      <div class="cartel">
+        <p class="ref">Notice d'Inventaire • INV-2025-014</p>
+        <h2>L'Érudit à l'Astrolabe en son Cabinet</h2>
+        <p>Attribué au cercle de Rembrandt Harmenszoon van Rijn, v. 1652</p>
+        <p class="meta">Huile sur toile de lin • H. 118 × L. 89 cm • Cadre doré d'époque Louis XIV</p>
+        <span class="badge">Mandat Actif</span>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <span>312 chefs-d'œuvre répertoriés • 48 maîtres d'atelier</span>
+      <span>© Ministère de la Culture • Domaine Public</span>
+    </footer>
+  </aside>
+
+  <section class="panel">
+    <div class="panel-body">
+      <ng-content />
+    </div>
+    <footer class="legal">
+      <span>Mentions légales</span> • <span>Règlement d'inventaire</span> • <span>Support technique</span>
+      <span class="version">v2.4 • Récolement 2025</span>
+    </footer>
+  </section>
+</main>
