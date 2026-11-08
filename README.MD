@@ -112,11 +112,6 @@ cd backend
 
 Sensitive configuration values, including the JWT signing key, MySQL credentials, SMTP credentials, and initial administrator account, are provided through environment variables and are never committed to version control.
 
-## Screenshots
-
-| Home Page | Login Page |
-|---|---|
-| ![Home Page](docs/screenshots/accueil.png) | ![Login Page](docs/screenshots/connexion.png) |
 
 ## Image Credits
 
