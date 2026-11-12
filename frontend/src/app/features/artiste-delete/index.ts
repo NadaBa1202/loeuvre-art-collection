@@ -1,0 +1,1 @@
+export { DeleteArtisteButton } from './delete-artiste-button/delete-artiste-button';

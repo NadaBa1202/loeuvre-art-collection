@@ -1,0 +1,31 @@
+<div class="shell">
+  <aside class="side">
+    <a class="brand" routerLink="/">
+      <span class="mark">ACM</span>
+      <span><strong>Art Collection</strong><small>Manager • Archival</small></span>
+    </a>
+
+    <nav class="nav">
+      <a class="link" routerLink="/"><app-icon name="home" /> Accueil</a>
+      <span class="link link--soon"><app-icon name="grid" /> Tableau de bord <em>bientôt</em></span>
+      <a class="link" routerLink="/artistes" routerLinkActive="link--active"><app-icon name="user" /> Artistes</a>
+      <span class="link link--soon"><app-icon name="image" /> Œuvres <em>bientôt</em></span>
+      @if (session.isAdmin()) {
+        <span class="link link--soon"><app-icon name="users" /> Utilisateurs <em>bientôt</em></span>
+      }
+    </nav>
+
+    <div class="me">
+      <span class="avatar">{{ initials() }}</span>
+      <span class="who"><strong>{{ fullName() }}</strong><small>{{ roleLabel() }}</small></span>
+      <button type="button" class="logout" (click)="logout()" aria-label="Se déconnecter">
+        <app-icon name="logout" />
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="top">Collection Nationale <span class="muted">›</span> <span class="muted">Inventaire Général</span></header>
+    <main class="content"><router-outlet /></main>
+  </div>
+</div>

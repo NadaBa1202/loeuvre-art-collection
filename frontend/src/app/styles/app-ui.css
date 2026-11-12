@@ -1,0 +1,16 @@
+.abtn {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1rem;
+  border: 1px solid transparent; border-radius: 8px; cursor: pointer;
+  font: 600 13px/16px var(--font-sans); letter-spacing: 0.03em; transition: filter 0.2s;
+}
+.abtn:hover:not(:disabled) { filter: brightness(1.1); }
+.abtn:disabled { opacity: 0.6; cursor: not-allowed; }
+.abtn--primary { background: var(--color-navy); color: var(--color-paper); }
+.abtn--soft { background: var(--color-chip); color: var(--color-navy); }
+.abtn--ghost { background: transparent; color: var(--color-muted); }
+.abtn--danger { background: var(--color-danger); color: #fff; }
+.abtn--danger-ghost { background: transparent; color: var(--color-danger); border-color: rgb(186 26 26 / 0.3); }
+
+.page-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 2rem; }
+.page-head h1 { font: 600 2.25rem/1.2 var(--font-serif); letter-spacing: -0.02em; color: var(--color-navy); }
+.page-head p { margin-top: 0.4rem; font-size: 0.9rem; color: var(--color-muted); }

@@ -30,12 +30,16 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST,
-                        "/api/auth/register", "/api/auth/login",
-                        "/api/auth/refresh", "/api/auth/logout").permitAll()
-                .requestMatchers("/api/users/**").hasRole("ADMIN")
-                .requestMatchers("/api/**").authenticated()   // deny by default for any other API route
-                .anyRequest().permitAll())                    // Angular static files in production
+            	    .requestMatchers(HttpMethod.POST,
+            	            "/api/auth/register", "/api/auth/login",
+            	            "/api/auth/refresh", "/api/auth/logout").permitAll()
+            	    .requestMatchers("/api/users/**").hasRole("ADMIN")
+            	    .requestMatchers(HttpMethod.GET,  "/api/artistes/**", "/api/oeuvres/**").hasAnyRole("ADMIN", "COLLABORATEUR")
+            	    .requestMatchers(HttpMethod.POST, "/api/artistes/**", "/api/oeuvres/**").hasAnyRole("ADMIN", "COLLABORATEUR")
+            	    .requestMatchers(HttpMethod.PUT,    "/api/artistes/**", "/api/oeuvres/**").hasRole("ADMIN")
+            	    .requestMatchers(HttpMethod.DELETE, "/api/artistes/**", "/api/oeuvres/**").hasRole("ADMIN")
+            	    .requestMatchers("/api/**").authenticated()
+            	    .anyRequest().permitAll())
             .oauth2ResourceServer(o -> o.jwt(j -> j.jwtAuthenticationConverter(jwtAuthenticationConverter())));
         return http.build();
     }

@@ -3,9 +3,9 @@
   <h2>Connexion</h2>
   
 </header>
-
-
-
+@if (justRegistered) {
+  <p class="auth-success">Compte créé. Vous pouvez maintenant vous connecter.</p>
+}
 <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <div class="field">
     <label for="email">Adresse e-mail institutionnelle</label>
@@ -27,10 +27,16 @@
       <p class="field-error">Le mot de passe est obligatoire.</p>
     }
   </div>
-
-  <button class="btn-submit" type="submit">Se connecter</button>
+  @if (errors().length) {
+    <div class="auth-error" role="alert">
+      <ul>@for (e of errors(); track e) { <li>{{ e }}</li> }</ul>
+    </div>
+  }
+  <button class="btn-submit" type="submit" [disabled]="loading()">
+    {{ loading() ? 'Connexion…' : 'Se connecter' }}
+  </button>
 </form>
 
 <p class="auth-alt">
-  Nouvel agent ou collaborateur habilité ? <a href="/register">Créer un compte</a>
+  Nouvel agent ou collaborateur habilité ? <a routerLink="/register">Créer un compte</a>
 </p>

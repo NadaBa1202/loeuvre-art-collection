@@ -1,0 +1,1 @@
+export { ArtisteFormPage } from './artiste-form';

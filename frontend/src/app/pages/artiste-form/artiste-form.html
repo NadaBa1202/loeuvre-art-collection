@@ -1,0 +1,14 @@
+<header class="page-head">
+  <div>
+    <h1>{{ editing ? "Modifier la notice d'artiste" : "Notice d'Autorité Artiste" }}</h1>
+    <p>Protocole de référencement du registre biographique pour la conservation muséale.</p>
+  </div>
+</header>
+
+@if (error()) {
+  <p role="alert" style="color: var(--color-danger)">{{ error() }}</p>
+} @else if (!editing || artiste()) {
+  <app-artiste-form [artiste]="artiste()" (saved)="onSaved()" />
+} @else {
+  <p>Chargement…</p>
+}

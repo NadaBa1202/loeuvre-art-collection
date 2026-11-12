@@ -1,0 +1,1 @@
+export { ArtisteForm } from './ui/artiste-form/artiste-form';

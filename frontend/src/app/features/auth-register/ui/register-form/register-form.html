@@ -4,11 +4,6 @@
   
 </header>
 
-
-@if (done()) {
-  <p class="auth-success">Formulaire valide. L'envoi au serveur sera branché à l'étape suivante.</p>
-}
-
 <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <div class="form-row">
     <div class="field">
@@ -51,7 +46,7 @@
         {{ showPassword() ? 'Masquer' : 'Afficher' }}
       </button>
     </div>
-    <p class="field-hint">8 caractères minimum.</p>
+    <p class="field-hint">12 caractères minimum.</p>
     @if (form.controls.password.touched && form.controls.password.invalid) {
       <p class="field-error">Le mot de passe doit contenir au moins 8 caractères.</p>
     }
@@ -64,8 +59,14 @@
       <p class="field-error">Les mots de passe ne correspondent pas.</p>
     }
   </div>
-
-  <button class="btn-submit" type="submit">Créer mon compte</button>
+  @if (errors().length) {
+    <div class="auth-error" role="alert">
+      <ul>@for (e of errors(); track e) { <li>{{ e }}</li> }</ul>
+    </div>
+  }
+  <button class="btn-submit" type="submit" [disabled]="loading()">
+    {{ loading() ? 'Création…' : 'Créer mon compte' }}
+  </button>
 </form>
 
-<p class="auth-alt">Déjà un compte ? <a href="/login">Se connecter</a></p>
+<p class="auth-alt">Déjà un compte ? <a routerLink="/login">Se connecter</a></p>

@@ -1,5 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthApi } from '@entities/session';
+import { extractErrors } from '@shared/api';
 
 function passwordsMatch(group: AbstractControl): ValidationErrors | null {
   return group.get('password')?.value === group.get('confirm')?.value ? null : { mismatch: true };
@@ -7,23 +10,25 @@ function passwordsMatch(group: AbstractControl): ValidationErrors | null {
 
 @Component({
   selector: 'app-register-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register-form.html',
 })
 export class RegisterForm {
   private readonly fb = inject(FormBuilder);
+  private readonly api = inject(AuthApi);
+  private readonly router = inject(Router);
 
   readonly showPassword = signal(false);
-  readonly done = signal(false);
+  readonly loading = signal(false);
+  readonly errors = signal<string[]>([]);
 
-  // Field names match the User entity of the backend (nom, prenom, email, tel, password)
   readonly form = this.fb.nonNullable.group(
     {
       prenom: ['', [Validators.required, Validators.maxLength(50)]],
       nom: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
       tel: ['', [Validators.required, Validators.pattern(/^\+?[0-9 ]{8,15}$/)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(128)]],
       confirm: ['', [Validators.required]],
     },
     { validators: passwordsMatch },
@@ -34,9 +39,15 @@ export class RegisterForm {
       this.form.markAllAsTouched();
       return;
     }
-    // Static for now: POST /api/auth/register comes in the next step.
-    const { confirm, password, ...data } = this.form.getRawValue();
-    console.log('register', data);
-    this.done.set(true);
+    const { confirm, ...payload } = this.form.getRawValue();
+    this.loading.set(true);
+    this.errors.set([]);
+    this.api.register(payload).subscribe({
+      next: () => this.router.navigate(['/login'], { queryParams: { registered: 1 } }),
+      error: err => {
+        this.errors.set(extractErrors(err));   // includes the server's password policy messages
+        this.loading.set(false);
+      },
+    });
   }
 }

@@ -1,0 +1,86 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="cols">
+    <div class="col">
+      <section class="panel">
+        <header><h2>Identification nominale</h2><span class="tag">Section 01</span></header>
+        <div class="fld">
+          <label for="nom">Nom complet <b>*</b></label>
+          <input id="nom" formControlName="nom" placeholder="Vincent Willem van Gogh" />
+          @if (invalid('nom')) { <p class="err">Le nom est obligatoire (150 caractères maximum).</p> }
+        </div>
+        <div class="fld-row">
+          <div class="fld">
+            <label for="nationalite">Nationalité</label>
+            <input id="nationalite" formControlName="nationalite" placeholder="Néerlandaise" />
+          </div>
+          <div class="fld">
+            <label for="mouvement">Courant / Mouvement</label>
+            <input id="mouvement" formControlName="mouvement" placeholder="Post-impressionnisme" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header><h2>Chronométrie biographique</h2><span class="tag">Section 02</span></header>
+        <div class="fld-row">
+          <div class="fld">
+            <label for="naissance">Année de naissance</label>
+            <input id="naissance" type="number" formControlName="anneeNaissance" placeholder="1853" />
+            @if (invalid('anneeNaissance')) { <p class="err">Entre -3000 et 2100.</p> }
+          </div>
+          <div class="fld">
+            <label for="deces">Année de décès</label>
+            <input id="deces" type="number" formControlName="anneeDeces" placeholder="1890" />
+            @if (invalid('anneeDeces')) { <p class="err">Entre -3000 et 2100.</p> }
+          </div>
+        </div>
+        <p class="hint">Laissez l'année de décès vide pour un artiste vivant. Pour une date antique, utilisez un nombre négatif.</p>
+      </section>
+
+      <section class="panel">
+        <header><h2>Biographie patrimoniale</h2><span class="tag">Section 03</span></header>
+        <div class="fld">
+          <label for="bio">Notice biographique</label>
+          <textarea id="bio" formControlName="biographie" rows="8"></textarea>
+          @if (invalid('biographie')) { <p class="err">5000 caractères maximum.</p> }
+        </div>
+      </section>
+    </div>
+
+    <aside class="col">
+      <section class="panel">
+        <header><h2>Portrait de référence</h2><span class="tag">Cartel</span></header>
+        <div class="fld">
+          <label for="photo">URL du portrait (https)</label>
+          <input id="photo" formControlName="photoUrl" placeholder="https://upload.wikimedia.org/…" />
+          @if (invalid('photoUrl')) { <p class="err">L'URL doit commencer par https://</p> }
+          <p class="hint">Domaine public ou licence libre de préférence.</p>
+        </div>
+        <div class="frame">
+          <div class="canvas">
+            <img appImgFallback referrerpolicy="no-referrer" alt="Aperçu du portrait"
+                 [src]="previewUrl() ?? 'images/placeholder.svg'" />
+          </div>
+          <div class="plaque">
+            <p class="plaque-name">{{ form.controls.nom.value || "Nom de l'artiste" }}</p>
+            <p class="plaque-years">{{ lifespan() }}</p>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <div class="bar">
+    <div class="status">
+      @if (errors().length) {
+        <ul class="errors" role="alert">@for (e of errors(); track e) { <li>{{ e }}</li> }</ul>
+      } @else {
+        {{ artiste() ? 'Modification de la notice' : 'Nouvelle notice' }}
+      }
+    </div>
+    <a class="abtn abtn--ghost" routerLink="/artistes">Annuler</a>
+    <button class="abtn abtn--primary" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Enregistrement…' : "Enregistrer la notice d'artiste" }}
+    </button>
+  </div>
+</form>

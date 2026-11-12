@@ -1,0 +1,26 @@
+<header class="page-head">
+  <div>
+    <h1>Catalogue des Artistes</h1>
+    <p>{{ artistes().length }} notice(s) d'autorité enregistrée(s)</p>
+  </div>
+  <a class="abtn abtn--primary" routerLink="/artistes/nouveau"><app-icon name="plus" /> Ajouter un artiste</a>
+</header>
+
+@if (loading()) {
+  <p class="info">Chargement…</p>
+} @else if (error()) {
+  <p class="info info--error" role="alert">{{ error() }}</p>
+} @else if (artistes().length === 0) {
+  <p class="info">Aucun artiste pour le moment. Ajoutez la première notice.</p>
+} @else {
+  <div class="grid">
+    @for (a of artistes(); track a.id) {
+      <app-artiste-card [artiste]="a">
+        @if (session.isAdmin()) {
+          <a class="abtn abtn--soft" [routerLink]="['/artistes', a.id, 'modifier']"><app-icon name="edit" /> Modifier</a>
+          <app-delete-artiste-button [artiste]="a" (deleted)="onDeleted($event)" />
+        }
+      </app-artiste-card>
+    }
+  </div>
+}

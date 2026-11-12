@@ -38,3 +38,6 @@
 .auth-alt { margin-top: 1.5rem; font-size: 0.85rem; }
 .auth-alt a { color: var(--color-gold); font-weight: 600; }
 .auth-success { padding: 0.9rem 1rem; font-size: 0.85rem; background: #ecfdf5; color: #065f46; border-radius: var(--radius); }
+
+.auth-error { padding: 0.9rem 1rem; font-size: 0.85rem; background: #fef3f2; color: #b42318; border-radius: var(--radius); }
+.auth-error ul { margin-left: 1.1rem; list-style: disc; }

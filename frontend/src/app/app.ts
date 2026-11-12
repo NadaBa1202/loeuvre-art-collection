@@ -23,5 +23,5 @@ export class App {
     { initialValue: this.router.url },
   );
 
-  readonly showNavbar = computed(() => !AUTH_ROUTES.includes(this.url().split(/[?#]/)[0]));
+  readonly showNavbar = computed(() => this.url().split(/[?#]/)[0] === '/');
 }

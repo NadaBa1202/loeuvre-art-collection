@@ -1,0 +1,1 @@
+export { ImgFallback } from './img-fallback';

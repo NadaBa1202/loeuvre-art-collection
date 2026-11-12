@@ -1,0 +1,12 @@
+<article class="card">
+  <div class="media">
+    <img appImgFallback loading="lazy" referrerpolicy="no-referrer"
+         [src]="artiste().photoUrl || 'images/placeholder.svg'" [alt]="artiste().nom" />
+  </div>
+  <div class="body">
+    <h3>{{ artiste().nom }}</h3>
+    @if (lifespan()) { <p class="years">{{ lifespan() }}</p> }
+    <p class="meta">{{ meta() }}</p>
+    <div class="actions"><ng-content /></div>
+  </div>
+</article>

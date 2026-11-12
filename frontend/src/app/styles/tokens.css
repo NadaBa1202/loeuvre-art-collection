@@ -17,4 +17,13 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-gold: 0 4px 12px rgb(23 43 56 / 0.06), 0 12px 36px -8px rgb(184 149 90 / 0.22);
   --container: 1200px;
+    --color-app-bg: #f7f2ea;
+  --color-paper: #fdfcfa;
+  --color-input: #f8f3eb;
+  --color-chip: #ece8e0;
+  --color-line: #e7e2da;
+  --color-navy-2: #1f3a4d;
+  --color-sidebar-text: #b4c9da;
+  --color-danger: #ba1a1a;
+  --shadow-card: 0 2px 4px -2px rgb(0 0 0 / 0.1), 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
