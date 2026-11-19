@@ -48,7 +48,10 @@ public class User {
     }
 
     public void addRole(Role role) { roles.add(role); }
-
+    public void setRoles(Set<Role> newRoles) {
+        roles.clear();
+        roles.addAll(newRoles);
+    }
     public Long getId() { return id; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }

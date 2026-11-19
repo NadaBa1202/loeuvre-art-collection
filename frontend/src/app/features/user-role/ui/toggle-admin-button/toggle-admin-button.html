@@ -1,0 +1,13 @@
+@if (!confirming()) {
+  <button type="button" class="abtn" [class.abtn--soft]="!isAdmin()" [class.abtn--ghost]="isAdmin()"
+          (click)="confirming.set(true)">
+    {{ isAdmin() ? 'Retirer admin' : 'Promouvoir admin' }}
+  </button>
+} @else {
+  <span class="confirm">
+    {{ isAdmin() ? 'Rétrograder en collaborateur ?' : 'Donner les droits administrateur ?' }}
+    <button type="button" class="abtn abtn--primary" [disabled]="busy()" (click)="confirm()">Confirmer</button>
+    <button type="button" class="abtn abtn--ghost" (click)="confirming.set(false)">Annuler</button>
+  </span>
+}
+@if (error()) { <p class="err">{{ error() }}</p> }

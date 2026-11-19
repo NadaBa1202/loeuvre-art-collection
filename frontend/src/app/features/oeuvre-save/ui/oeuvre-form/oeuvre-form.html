@@ -1,0 +1,94 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="cols">
+    <div class="col">
+      <section class="panel">
+        <header><h2>Identification de l'œuvre</h2><span class="tag">Section 01</span></header>
+        <div class="fld">
+          <label for="titre">Titre <b>*</b></label>
+          <input id="titre" formControlName="titre" placeholder="Les Tournesols" />
+          @if (invalid('titre')) { <p class="err">Le titre est obligatoire (200 caractères maximum).</p> }
+        </div>
+        <div class="fld">
+          <label for="artiste">Artiste <b>*</b></label>
+          <select id="artiste" formControlName="idArtiste">
+            <option [ngValue]="null" disabled>Choisir un artiste…</option>
+            @for (a of artistes(); track a.id) {
+              <option [ngValue]="a.id">{{ a.nom }}</option>
+            }
+          </select>
+          @if (invalid('idArtiste')) { <p class="err">Choisissez un artiste.</p> }
+          @if (artistesLoaded() && artistes().length === 0) {
+            <p class="hint">Aucun artiste enregistré. <a routerLink="/artistes/nouveau">Ajoutez d'abord un artiste</a>.</p>
+          }
+        </div>
+      </section>
+
+      <section class="panel">
+        <header><h2>Datation &amp; technique</h2><span class="tag">Section 02</span></header>
+        <div class="fld-row">
+          <div class="fld">
+            <label for="annee">Année de création</label>
+            <input id="annee" type="number" formControlName="anneeCreation" placeholder="1888" />
+            @if (invalid('anneeCreation')) { <p class="err">Entre -3000 et 2100.</p> }
+          </div>
+          <div class="fld">
+            <label for="technique">Technique</label>
+            <input id="technique" formControlName="technique" list="techniques" placeholder="Huile sur toile" />
+            <datalist id="techniques">
+              @for (t of techniques; track t) { <option [value]="t"></option> }
+            </datalist>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header><h2>Notice descriptive</h2><span class="tag">Section 03</span></header>
+        <div class="fld">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" rows="8"></textarea>
+          @if (invalid('description')) { <p class="err">5000 caractères maximum.</p> }
+        </div>
+      </section>
+    </div>
+
+    <aside class="col">
+      <section class="panel">
+        <header><h2>Image de référence</h2><span class="tag">Cartel</span></header>
+        <div class="fld">
+          <label for="image">URL de l'image (https)</label>
+          <input id="image" formControlName="imageUrl" placeholder="https://upload.wikimedia.org/…" />
+          @if (invalid('imageUrl')) { <p class="err">L'URL doit commencer par https://</p> }
+        </div>
+        <div class="fld">
+          <label for="credit">Crédit de l'image</label>
+          <input id="credit" formControlName="credit" placeholder="Wikimedia Commons, domaine public" />
+          <p class="hint">Indiquez la source et la licence : c'est ce qui permet d'afficher l'image légalement.</p>
+        </div>
+        <div class="frame">
+          <div class="canvas">
+            <img appImgFallback referrerpolicy="no-referrer" alt="Aperçu de l'œuvre"
+                 [src]="previewUrl() ?? 'images/placeholder.svg'" />
+          </div>
+          <div class="plaque">
+            <p class="plaque-name">{{ form.controls.titre.value || "Titre de l'œuvre" }}</p>
+            <p class="plaque-years">{{ artisteNom() }}</p>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <div class="bar">
+    <div class="status">
+      @if (errors().length) {
+        <ul class="errors" role="alert">@for (e of errors(); track e) { <li>{{ e }}</li> }</ul>
+      } @else {
+        {{ oeuvre() ? "Modification de l'œuvre" : 'Nouvelle œuvre' }}
+      }
+    </div>
+    <a class="abtn abtn--ghost" routerLink="/oeuvres">Annuler</a>
+    <button class="abtn abtn--primary" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Enregistrement…' : "Enregistrer l'œuvre" }}
+    </button>
+  </div>
+</form>

@@ -1,8 +1,12 @@
 <header class="nav">
   <div class="bar container">
     <a class="brand" href="/">
-      <span class="mark">◆</span>
-      Art Collection <em>Manager</em>
+      <img
+        src="/images/logo_l_oeuvre_corrected.png"
+        alt="L'Oeuvre logo"
+        class="logo"
+      />
+     
     </a>
 
     <button class="burger" type="button" aria-label="Menu"
@@ -12,7 +16,9 @@
 
     <nav class="menu" [class.menu--open]="open()">
       @for (l of links; track l.href) {
-        <a class="link" [href]="l.href" (click)="close()">{{ l.label }}</a>
+        <a class="link" [href]="l.href" (click)="close()">
+          {{ l.label }}
+        </a>
       }
       <app-button variant="primary" href="/login">Connexion</app-button>
     </nav>

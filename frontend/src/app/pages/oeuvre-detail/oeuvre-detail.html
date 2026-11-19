@@ -1,0 +1,40 @@
+@if (error()) {
+  <p role="alert" class="msg msg--error">{{ error() }}</p>
+} @else if (oeuvre(); as o) {
+  <header class="page-head">
+    <div>
+      <h1>{{ o.titre }}</h1>
+      <p>par <a class="artist-link" [routerLink]="['/artistes', o.artisteId]">{{ o.artisteNom }}</a></p>
+    </div>
+    @if (session.isAdmin()) {
+      <div class="admin">
+        <a class="abtn abtn--soft" [routerLink]="['/oeuvres', o.id, 'modifier']"><app-icon name="edit" /> Modifier</a>
+        <app-delete-oeuvre-button [oeuvre]="o" (deleted)="onDeleted()" />
+      </div>
+    }
+  </header>
+
+  <div class="layout">
+    <figure class="frame">
+      <div class="canvas">
+        <img appImgFallback referrerpolicy="no-referrer"
+             [src]="o.imageUrl || 'images/placeholder.svg'" [alt]="o.titre" />
+      </div>
+      @if (o.credit) { <figcaption>Crédit de l'image : {{ o.credit }}</figcaption> }
+    </figure>
+
+    <section class="info">
+      <dl>
+        @if (o.anneeCreation !== null) { <div><dt>Année de création</dt><dd>{{ o.anneeCreation }}</dd></div> }
+        @if (o.technique) { <div><dt>Technique</dt><dd>{{ o.technique }}</dd></div> }
+        <div><dt>Artiste</dt><dd><a class="artist-link" [routerLink]="['/artistes', o.artisteId]">{{ o.artisteNom }}</a></dd></div>
+      </dl>
+      @if (o.description) {
+        <h2>Notice descriptive</h2>
+        <p class="desc">{{ o.description }}</p>
+      }
+    </section>
+  </div>
+} @else {
+  <p class="msg">Chargement…</p>
+}

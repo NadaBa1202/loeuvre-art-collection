@@ -7,6 +7,7 @@ export interface Artiste {
   mouvement: string | null;
   biographie: string | null;
   photoUrl: string | null;
+  nbOeuvres: number;
 }
 
-export type ArtisteInput = Omit<Artiste, 'id'>;
+export type ArtisteInput = Omit<Artiste, 'id' | 'nbOeuvres'>;

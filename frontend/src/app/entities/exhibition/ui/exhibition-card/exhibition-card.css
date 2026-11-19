@@ -1,10 +1,35 @@
-.card {
-  display: flex; flex-direction: column; height: 100%; overflow: hidden;
-  background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: 1.5rem;
 }
 
-.media { position: relative; aspect-ratio: 4 / 5; }
-.media img { width: 100%; height: 100%; object-fit: cover; }
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.media {
+  position: relative;
+  height: 550px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 /* dark fade at the bottom so the place name is readable */
 .media::after {
   content: ''; position: absolute; inset: 0;
@@ -32,3 +57,17 @@ footer {
 }
 .date { color: var(--color-muted); }
 footer a { color: var(--color-gold); font-weight: 600; }
+
+.media {
+  position: relative;
+  height: 550px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

@@ -1,0 +1,100 @@
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Inventaire général</span>
+    <h1>Tableau de bord</h1>
+    <p>Vue d'ensemble de la collection.</p>
+  </div>
+  <a class="btn" routerLink="/oeuvres">Voir la galerie</a>
+</header>
+
+@if (loading()) {
+  <p class="info">Chargement…</p>
+} @else if (error()) {
+  <p class="info info--error" role="alert">{{ error() }}</p>
+} @else if (data(); as d) {
+  <div class="stats">
+    <a class="stat" routerLink="/artistes">
+      <span class="tag">Répertoire actif</span>
+      <strong>{{ d.nbArtistes }}</strong>
+      <span class="lbl">Artiste{{ d.nbArtistes > 1 ? 's' : '' }}</span>
+      <span class="note">{{ average() }} œuvres par artiste en moyenne</span>
+    </a>
+    <a class="stat" routerLink="/oeuvres">
+      <span class="tag">Fonds patrimonial</span>
+      <strong>{{ d.nbOeuvres }}</strong>
+      <span class="lbl">Œuvre{{ d.nbOeuvres > 1 ? 's' : '' }} cataloguée{{ d.nbOeuvres > 1 ? 's' : '' }}</span>
+      <span class="note">{{ d.parTechnique.length }} technique{{ d.parTechnique.length > 1 ? 's' : '' }} représentée{{ d.parTechnique.length > 1 ? 's' : '' }}</span>
+    </a>
+    @if (d.nbUtilisateurs !== null) {
+    <div class="stat">
+      <span class="tag">Accréditations d'accès</span>
+      <strong>{{ d.nbUtilisateurs }}</strong>
+      <span class="lbl">Utilisateur{{ d.nbUtilisateurs > 1 ? 's' : '' }} habilité{{ d.nbUtilisateurs > 1 ? 's' : '' }}</span>
+      <span class="note">Comptes autorisés à se connecter</span>
+    </div>
+}
+  </div>
+
+  <section class="panel">
+    <header>
+      <div>
+        <span class="tag tag--gold">Analyse morphologique</span>
+        <h2>Répartition par technique</h2>
+      </div>
+      <span class="chip">Total : {{ d.nbOeuvres }} notices</span>
+    </header>
+
+    @if (slices().length === 0) {
+      <p class="empty">Aucune œuvre enregistrée pour le moment.</p>
+    } @else {
+      <div class="chart">
+        <div class="donut" [style.background-image]="donut()">
+          <div class="donut-center">
+            <strong>{{ d.nbOeuvres }}</strong>
+            <span class="tag">Œuvres</span>
+          </div>
+        </div>
+        <ul class="legend">
+          @for (s of slices(); track s.technique) {
+            <li>
+              <span class="dot" [style.background]="s.color"></span>
+              <span class="legend-name">{{ s.technique }}</span>
+              <span class="legend-pct">{{ s.pct }}%</span>
+              <span class="legend-count">({{ s.total }})</span>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </section>
+
+  <section class="recent">
+    <header>
+      <div>
+        <span class="tag tag--gold">Dernières entrées</span>
+        <h2>Œuvres récemment ajoutées</h2>
+      </div>
+      <a class="link" routerLink="/oeuvres">Consulter l'ensemble de la collection →</a>
+    </header>
+
+    @if (d.recentes.length === 0) {
+      <p class="empty">Aucune œuvre enregistrée pour le moment.</p>
+    } @else {
+      <div class="works">
+        @for (w of d.recentes; track w.id) {
+          <a class="work" [routerLink]="['/oeuvres', w.id]">
+            <div class="work-img">
+              <img [src]="w.imageUrl || ''" [alt]="w.titre" loading="lazy" (error)="onImgError($event)" />
+              @if (w.technique) { <span class="badge">{{ w.technique }}</span> }
+            </div>
+            <div class="work-body">
+              <h3>{{ w.titre }}</h3>
+              <p class="work-artist">{{ w.artisteNom }}</p>
+              @if (w.anneeCreation) { <span class="chip">{{ w.anneeCreation }}</span> }
+            </div>
+          </a>
+        }
+      </div>
+    }
+  </section>
+}

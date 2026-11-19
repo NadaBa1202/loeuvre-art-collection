@@ -1,4 +1,4 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { Artiste, ArtisteApi } from '@entities/artiste';
 import { extractErrors } from '@shared/api';
 import { Icon } from '@shared/ui/icon';
@@ -18,6 +18,13 @@ export class DeleteArtisteButton {
   readonly confirming = signal(false);
   readonly busy = signal(false);
   readonly error = signal<string | null>(null);
+
+  readonly message = computed(() => {
+    const n = this.artiste().nbOeuvres;
+    return n > 0
+      ? `Supprimer cet artiste et ses ${n} œuvre${n > 1 ? 's' : ''} ? Action irréversible.`
+      : 'Supprimer cet artiste ? Action irréversible.';
+  });
 
   confirm() {
     this.busy.set(true);

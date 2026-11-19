@@ -1,0 +1,26 @@
+<header class="page-head">
+  <div>
+    <h1>Galerie des Œuvres</h1>
+    <p>{{ oeuvres().length }} œuvre(s) répertoriée(s)</p>
+  </div>
+  <a class="abtn abtn--primary" routerLink="/oeuvres/nouvelle"><app-icon name="plus" /> Ajouter une œuvre</a>
+</header>
+
+@if (loading()) {
+  <p class="info">Chargement…</p>
+} @else if (error()) {
+  <p class="info info--error" role="alert">{{ error() }}</p>
+} @else if (oeuvres().length === 0) {
+  <p class="info">Aucune œuvre pour le moment. Ajoutez la première.</p>
+} @else {
+  <div class="grid">
+    @for (o of oeuvres(); track o.id) {
+      <app-oeuvre-card [oeuvre]="o">
+        @if (session.isAdmin()) {
+          <a class="abtn abtn--soft" [routerLink]="['/oeuvres', o.id, 'modifier']"><app-icon name="edit" /> Modifier</a>
+          <app-delete-oeuvre-button [oeuvre]="o" (deleted)="onDeleted($event)" />
+        }
+      </app-oeuvre-card>
+    }
+  </div>
+}

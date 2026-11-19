@@ -1,11 +1,12 @@
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ImgFallback } from '@shared/ui/img-fallback';
 import { Artiste } from '../../model/artiste';
 import { formatLifespan } from '../../lib/format-lifespan';
 
 @Component({
   selector: 'app-artiste-card',
-  imports: [ImgFallback],
+  imports: [RouterLink, ImgFallback],
   templateUrl: './artiste-card.html',
   styleUrl: './artiste-card.css',
 })

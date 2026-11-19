@@ -1,0 +1,12 @@
+@if (!confirming()) {
+  <button type="button" class="abtn abtn--danger-ghost" (click)="confirming.set(true)">
+    <app-icon name="trash" /> Supprimer
+  </button>
+} @else {
+  <span class="confirm">
+    Supprimer cette œuvre ?
+    <button type="button" class="abtn abtn--danger" [disabled]="busy()" (click)="confirm()">Confirmer</button>
+    <button type="button" class="abtn abtn--ghost" (click)="confirming.set(false)">Annuler</button>
+  </span>
+}
+@if (error()) { <p class="err">{{ error() }}</p> }

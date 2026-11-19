@@ -1,0 +1,42 @@
+:host { display: block; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.col { display: grid; gap: 1.5rem; }
+@media (max-width: 1100px) { .cols { grid-template-columns: 1fr; } }
+
+.panel { display: grid; gap: 1rem; padding: 1.5rem; background: var(--color-paper); border-radius: 12px; box-shadow: var(--shadow-card); }
+.panel header { display: flex; justify-content: space-between; align-items: center; }
+h2 { font: 500 1.25rem/1.4 var(--font-serif); color: var(--color-navy); }
+.tag { font: 700 11px/14px var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
+
+.fld-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 560px) { .fld-row { grid-template-columns: 1fr; } }
+.fld { display: grid; gap: 0.4rem; }
+label { font: 600 13px/16px var(--font-sans); letter-spacing: 0.03em; color: var(--color-navy); }
+label b { color: var(--color-danger); }
+input, textarea, select {
+  width: 100%; padding: 0.7rem 1rem; background: var(--color-input); color: #1f2224;
+  border: 1px solid transparent; border-radius: 8px; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  font: 400 14px/22px var(--font-sans);
+}
+select { appearance: auto; cursor: pointer; }
+textarea { resize: vertical; min-height: 180px; }
+input:focus, textarea:focus, select:focus { outline: 2px solid rgb(184 149 90 / 0.45); }
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched { border-color: var(--color-danger); }
+.err { font-size: 0.75rem; color: var(--color-danger); }
+.hint { font-size: 0.75rem; color: var(--color-muted); }
+.hint a { color: var(--color-gold); font-weight: 600; }
+
+.frame { display: grid; gap: 1rem; padding: 1rem; background: #f4efeb; border-radius: 12px; box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.05); }
+.canvas { padding: 10px; background: var(--color-line); border-radius: 8px; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+.canvas img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: var(--color-navy); border: 4px solid rgb(184 149 90 / 0.3); border-radius: 4px; }
+.plaque { padding: 0.75rem; text-align: center; background: var(--color-paper); border-radius: 4px; }
+.plaque-name { font: italic 500 1.25rem/1.4 var(--font-serif); color: #1f2224; }
+.plaque-years { min-height: 14px; font: 700 11px/14px var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
+
+.bar {
+  position: sticky; bottom: 1rem; z-index: 4; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
+  margin-top: 1.5rem; padding: 0.9rem 1.25rem; background: rgb(253 252 250 / 0.95); backdrop-filter: blur(12px);
+  border-radius: 16px; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+.status { flex: 1; min-width: 200px; font-size: 0.8rem; color: var(--color-muted); }
+.errors { margin-left: 1.1rem; list-style: disc; color: var(--color-danger); }

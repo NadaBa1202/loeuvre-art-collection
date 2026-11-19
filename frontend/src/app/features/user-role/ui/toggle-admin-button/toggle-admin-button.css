@@ -1,0 +1,2 @@
+.confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--color-navy); }
+.err { margin-top: 0.4rem; font-size: 0.75rem; color: var(--color-danger); }

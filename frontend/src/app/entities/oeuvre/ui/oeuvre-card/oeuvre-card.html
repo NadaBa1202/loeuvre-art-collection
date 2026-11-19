@@ -1,0 +1,12 @@
+<article class="card">
+  <a class="media" [routerLink]="['/oeuvres', oeuvre().id]">
+    <img appImgFallback loading="lazy" referrerpolicy="no-referrer"
+         [src]="oeuvre().imageUrl || 'images/placeholder.svg'" [alt]="oeuvre().titre" />
+  </a>
+  <div class="body">
+    <h3><a [routerLink]="['/oeuvres', oeuvre().id]">{{ oeuvre().titre }}</a></h3>
+    <p class="artist">{{ oeuvre().artisteNom }}</p>
+    @if (meta()) { <p class="meta">{{ meta() }}</p> }
+    <div class="actions"><ng-content /></div>
+  </div>
+</article>

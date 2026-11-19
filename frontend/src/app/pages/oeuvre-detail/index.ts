@@ -1,0 +1,1 @@
+export { OeuvreDetailPage } from './oeuvre-detail';

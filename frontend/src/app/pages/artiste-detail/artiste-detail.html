@@ -1,0 +1,47 @@
+@if (error()) {
+  <p role="alert" class="msg msg--error">{{ error() }}</p>
+} @else if (artiste(); as a) {
+  <header class="page-head">
+    <div>
+      <h1>{{ a.nom }}</h1>
+      <p>{{ lifespan(a) }}@if (a.nationalite) { · {{ a.nationalite }} }@if (a.mouvement) { · {{ a.mouvement }} }</p>
+    </div>
+    @if (session.isAdmin()) {
+      <div class="admin">
+        <a class="abtn abtn--soft" [routerLink]="['/artistes', a.id, 'modifier']"><app-icon name="edit" /> Modifier</a>
+        <app-delete-artiste-button [artiste]="a" (deleted)="onArtisteDeleted()" />
+      </div>
+    }
+  </header>
+
+  <div class="layout">
+    <figure class="portrait">
+      <img appImgFallback referrerpolicy="no-referrer" [src]="a.photoUrl || 'images/placeholder.svg'" [alt]="a.nom" />
+    </figure>
+    <section class="bio">
+      <h2>Biographie patrimoniale</h2>
+      @if (a.biographie) {
+        <p>{{ a.biographie }}</p>
+      } @else {
+        <p class="muted">Aucune biographie renseignée.</p>
+      }
+    </section>
+  </div>
+
+  <header class="page-head works-head">
+    <div><h2>Œuvres ({{ oeuvres().length }})</h2></div>
+    <a class="abtn abtn--primary" routerLink="/oeuvres/nouvelle" [queryParams]="{ artisteId: a.id }">
+      <app-icon name="plus" /> Ajouter une œuvre
+    </a>
+  </header>
+
+  @if (oeuvres().length === 0) {
+    <p class="msg">Aucune œuvre pour cet artiste.</p>
+  } @else {
+    <div class="grid">
+      @for (o of oeuvres(); track o.id) { <app-oeuvre-card [oeuvre]="o" /> }
+    </div>
+  }
+} @else {
+  <p class="msg">Chargement…</p>
+}

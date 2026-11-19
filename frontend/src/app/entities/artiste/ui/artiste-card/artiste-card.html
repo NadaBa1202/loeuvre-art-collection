@@ -1,12 +1,13 @@
 <article class="card">
-  <div class="media">
+  <a class="media" [routerLink]="['/artistes', artiste().id]">
     <img appImgFallback loading="lazy" referrerpolicy="no-referrer"
          [src]="artiste().photoUrl || 'images/placeholder.svg'" [alt]="artiste().nom" />
-  </div>
+  </a>
   <div class="body">
-    <h3>{{ artiste().nom }}</h3>
+    <h3><a [routerLink]="['/artistes', artiste().id]">{{ artiste().nom }}</a></h3>
     @if (lifespan()) { <p class="years">{{ lifespan() }}</p> }
     <p class="meta">{{ meta() }}</p>
+    <p class="count">{{ artiste().nbOeuvres }} œuvre{{ artiste().nbOeuvres > 1 ? 's' : '' }}</p>
     <div class="actions"><ng-content /></div>
   </div>
 </article>

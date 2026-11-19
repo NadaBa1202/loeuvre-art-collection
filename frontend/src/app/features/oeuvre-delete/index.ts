@@ -1,0 +1,1 @@
+export { DeleteOeuvreButton } from './ui/delete-oeuvre-button/delete-oeuvre-button';

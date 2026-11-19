@@ -1,0 +1,59 @@
+<header class="page-head">
+  <div>
+    <h1>Utilisateurs</h1>
+    <p>{{ users().length }} compte(s) · {{ adminCount() }} administrateur(s)</p>
+  </div>
+</header>
+
+<div class="tabs" role="tablist">
+  <button type="button" class="tab" [class.tab--on]="filter() === 'ALL'" (click)="filter.set('ALL')">Tous</button>
+  <button type="button" class="tab" [class.tab--on]="filter() === 'ADMIN'" (click)="filter.set('ADMIN')">Administrateurs</button>
+  <button type="button" class="tab" [class.tab--on]="filter() === 'COLLABORATEUR'" (click)="filter.set('COLLABORATEUR')">Collaborateurs</button>
+</div>
+
+@if (loading()) {
+  <p class="info">Chargement…</p>
+} @else if (error()) {
+  <p class="info info--error" role="alert">{{ error() }}</p>
+} @else if (visible().length === 0) {
+  <p class="info">Aucun utilisateur dans cette catégorie.</p>
+} @else {
+  <section class="panel">
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Utilisateur</th><th>Téléphone</th><th>Accès</th><th class="end">Gestion</th></tr>
+        </thead>
+        <tbody>
+          @for (u of visible(); track u.id) {
+            <tr>
+              <td>
+                <div class="who">
+                  <span class="avatar">{{ initials(u) }}</span>
+                  <div>
+                    <p class="name">{{ u.prenom }} {{ u.nom }} @if (isMe(u)) { <span class="me">Vous</span> }</p>
+                    <p class="mail">{{ u.email }}</p>
+                  </div>
+                </div>
+              </td>
+              <td class="tel">{{ u.tel || '—' }}</td>
+              <td>
+                @for (r of u.roles; track r) {
+                  <span class="chip" [class.chip--admin]="r === 'ADMIN'">{{ label(r) }}</span>
+                }
+              </td>
+              <td class="end">
+                @if (!isMe(u)) {
+                  <div class="actions">
+                    <app-toggle-admin-button [user]="u" (changed)="onChanged($event)" />
+                    <app-delete-user-button [user]="u" (deleted)="onDeleted($event)" />
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

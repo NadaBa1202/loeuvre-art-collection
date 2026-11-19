@@ -1,0 +1,14 @@
+<header class="page-head">
+  <div>
+    <h1>{{ editing ? "Modifier l'œuvre" : 'Nouvelle œuvre' }}</h1>
+    <p>Notice d'inventaire : rattachée à un artiste du catalogue.</p>
+  </div>
+</header>
+
+@if (error()) {
+  <p role="alert" style="color: var(--color-danger)">{{ error() }}</p>
+} @else if (!editing || oeuvre()) {
+  <app-oeuvre-form [oeuvre]="oeuvre()" [defaultArtisteId]="defaultArtisteId" (saved)="onSaved($event)" />
+} @else {
+  <p>Chargement…</p>
+}

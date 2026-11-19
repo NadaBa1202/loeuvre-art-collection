@@ -6,15 +6,31 @@
     </a>
 
     <nav class="nav">
-      <a class="link" routerLink="/"><app-icon name="home" /> Accueil</a>
-      <span class="link link--soon"><app-icon name="grid" /> Tableau de bord <em>bientôt</em></span>
-      <a class="link" routerLink="/artistes" routerLinkActive="link--active"><app-icon name="user" /> Artistes</a>
-      <span class="link link--soon"><app-icon name="image" /> Œuvres <em>bientôt</em></span>
-      @if (session.isAdmin()) {
-        <span class="link link--soon"><app-icon name="users" /> Utilisateurs <em>bientôt</em></span>
-      }
-    </nav>
+  <a class="link" routerLink="/" routerLinkActive="link--active"
+     [routerLinkActiveOptions]="{ exact: true }">
+    <app-icon name="home" /> Accueil
+  </a>
 
+  <a class="link" routerLink="/dashboard" routerLinkActive="link--active">
+    <app-icon name="grid" />
+    Tableau de bord
+  </a>
+
+  <a class="link" routerLink="/artistes" routerLinkActive="link--active">
+    <app-icon name="user" /> Artistes
+  </a>
+
+  <a class="link" routerLink="/oeuvres" routerLinkActive="link--active">
+    <app-icon name="image" /> Œuvres
+  </a>
+
+  @if (session.isAdmin()) {
+    <a class="link" routerLink="/users" routerLinkActive="link--active">
+      <app-icon name="users" />
+      Utilisateurs
+    </a>
+  }
+</nav>
     <div class="me">
       <span class="avatar">{{ initials() }}</span>
       <span class="who"><strong>{{ fullName() }}</strong><small>{{ roleLabel() }}</small></span>
