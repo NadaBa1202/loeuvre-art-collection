@@ -5,6 +5,7 @@ backend/target/
 # Secrets: never in Git (JWT key, DB password, SMTP)
 .env
 *.env.local
+.env.*
 application-local.properties
 
 # IDE / OS
